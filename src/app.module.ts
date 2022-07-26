@@ -4,21 +4,20 @@ import { TypeOrmModule } from '@nestjs/typeorm';
 import { Files, DataSeries } from './typeorm';
 import { DataSource } from 'typeorm';
 import { FilesModule } from './files/files.module';
+import { ConfigModule } from '@nestjs/config';
 
 @Module({
   imports: [
     DataSeriesModule,
     FilesModule,
+    ConfigModule.forRoot({isGlobal:true}),
     TypeOrmModule.forRoot({
-      type: 'mysql',
-      host: 'localhost',
-      port: 3306,
-      username: 'root',
-      password: '',
-      database: 'api_rest_dashboard',
-      entities: [DataSeries,Files],
+      type: 'postgres',
+      url: process.env.DATABASE_URL,
+      autoLoadEntities: true,
       synchronize: true
-    })],
+    }),
+  ],
   controllers: [],
   providers: [],
 })

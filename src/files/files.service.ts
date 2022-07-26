@@ -24,7 +24,7 @@ export class FilesService {
             filename: file.filename,
             path: file.path,
             size: file.size,
-            originalName: file.originalname
+            original_name: file.originalname
         });
         return this.fileRepository.save(fileData);
     }

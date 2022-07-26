@@ -14,7 +14,7 @@ export class Files{
     name: string;
 
     @Column()
-    originalName: string;
+    original_name: string;
 
     @Column()
     encoding: string;

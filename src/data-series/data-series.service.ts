@@ -19,14 +19,14 @@ export class DataSeriesService {
     return this.dataRepository.createQueryBuilder('files')
       .innerJoinAndSelect('files.file', 'data_series')
       .select([
-        'fileId                             as fileId',
+        'file_id                            as fileId',
         'name                               as name',
         'count(value)                       as qtdpoint',
         'ROUND((SUM(value)/count(value)),2) as average',
         'MAX(date)	 	                      as maxdate',
         'MIN(date)	 			  				        as mindate',
         'created_at	 			  				        as create_at',
-        'originalName                       as originalName'
+        'original_name                       as originalName'
       ])
       .groupBy('file_id')
       .getRawMany();
@@ -37,7 +37,7 @@ export class DataSeriesService {
 
     var data_series = await this.dataRepository.createQueryBuilder('data_series')
       .leftJoinAndSelect('data_series.file', 'files')
-      .select(['data_series.*', 'name as file_name'])
+      .select(['data_series.*', 'max(name) as file_name'])
       .where("data_series.fileId = :fileId", { fileId: id })
       .groupBy('data_series_id')
       .getRawMany();
