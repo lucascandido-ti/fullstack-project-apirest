@@ -12,7 +12,7 @@ services:
             PORT: 3000
         ports:
             - "8080:3000"
-
+        mem_limit: 300m
     postgres:
         image: postgres:10.4
         ports:
@@ -21,3 +21,4 @@ services:
             POSTGRES_USER: user
             POSTGRES_PASSWORD: password
             POSTGRES_DB: db
+        mem_limit: 300m

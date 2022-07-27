@@ -1,4 +1,4 @@
-import { BadRequestException, Injectable, Req } from '@nestjs/common';
+import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { readFileSync } from 'fs';
 import { FilesService } from 'src/files/files.service';
@@ -12,7 +12,7 @@ export class DataSeriesService {
   constructor(
     @InjectRepository(DataSeries)
     private readonly dataRepository: Repository<DataSeries>,
-    private readonly fileServices: FilesService
+    private readonly fileServices: FilesService,
   ) { }
 
   findAll() {
@@ -55,7 +55,7 @@ export class DataSeriesService {
   }
 
   async readFile(file: Express.Multer.File, createDataDto: CreateDataSeriesDto): Promise<Files> {
-    
+
     const csvFile = readFileSync(file.path);
     var fileSaved = await this.fileServices.create(file, createDataDto.name);
 
