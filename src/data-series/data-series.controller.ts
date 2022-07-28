@@ -11,6 +11,7 @@ export class DataSeriesController {
   constructor(private readonly dataSeriesService: DataSeriesService) { }
 
   @Post('upload')
+  // 👍 Boa demonstração de conhecimento do upload de arquivos com o FileInterceptor / multer
   @UseInterceptors(FileInterceptor('file', { storage: diskStorage({ destination: './files' }), fileFilter: fileTypeFilter }))
   uploadFile(@Req() req, @UploadedFile() file: Express.Multer.File, @Body() createDataSeriesDto: CreateDataSeriesDto) {
     if (!file || req.fileTypeValidationError) {

@@ -10,6 +10,7 @@ import { APP_INTERCEPTOR } from '@nestjs/core';
   imports: [
     CacheModule.register(),
     TypeOrmModule.forFeature([DataSeries]),
+    // 👍 Boa demonstração de conhecimento do sistema de injeção de dependência do Nest
     FilesModule
   ],
   controllers: [DataSeriesController],
@@ -17,6 +18,7 @@ import { APP_INTERCEPTOR } from '@nestjs/core';
     DataSeriesService,
     {
       provide: APP_INTERCEPTOR,
+      // 👍 Gostei do uso de caching do Nest para aliviar a API
       useClass: CacheInterceptor,
     }
   ]

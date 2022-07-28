@@ -9,6 +9,7 @@ import { ConfigModule } from '@nestjs/config';
   imports: [
     DataSeriesModule,
     FilesModule,
+    // 👎 Legal que conhece o `@nestjs/config`, mas esse módulo não é usado
     ConfigModule.forRoot({isGlobal:true}),
     TypeOrmModule.forRoot({
       type: 'postgres',

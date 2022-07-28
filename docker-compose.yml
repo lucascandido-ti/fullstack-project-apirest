@@ -1,4 +1,6 @@
 version: "3.8"
+
+# 👍 Usou Docker / Compose
 services:
     api:
         build:
