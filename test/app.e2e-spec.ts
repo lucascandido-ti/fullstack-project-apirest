@@ -3,6 +3,7 @@ import { INestApplication } from '@nestjs/common';
 import * as request from 'supertest';
 import { AppModule } from './../src/app.module';
 
+// 👎 Poderia ter escrito alguns testes (unitários ou de integração) para conhecer o Jest
 describe('AppController (e2e)', () => {
   let app: INestApplication;
 

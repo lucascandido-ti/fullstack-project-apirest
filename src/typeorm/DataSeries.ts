@@ -1,6 +1,10 @@
 import { Column, Entity, JoinColumn, ManyToOne, OneToMany, PrimaryGeneratedColumn } from "typeorm";
 import { Files } from "./Files";
 
+/**
+ * Eu, pessoalmente chamei esta tabela de "DataSeriesPoints", 
+ * pois ela contém os pontos das séries de dados.
+ */
 @Entity()
 export class DataSeries{
     
@@ -19,6 +23,7 @@ export class DataSeries{
     @Column()
     value: number;
 
+    // 👍 Bom uso do "ON DELETE CASCADE" na Foreign Key
     @ManyToOne(type => Files, file => file.id, { onDelete: 'CASCADE' })
     file: Files;
 }

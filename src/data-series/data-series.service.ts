@@ -15,7 +15,18 @@ export class DataSeriesService {
     private readonly fileServices: FilesService,
   ) { }
 
+  // 👍 Gostei da demonstração de uso da API de QueryBuilder do TypeORM
   findAll() {
+    /**
+     * 👎 O método de cálculo da média não está correto
+     * 
+     * Será que é suficiente apenas dividir a soma dos pontos pelo total?
+     * Por se tratar de uma série de dados temporal, a diferença de tempo entre 2 pontos 
+     * consecutivos deveria ser levada em consideração no cálculo.
+     * 
+     * Por exemplo, para a série do arquivo "aee613210da0a66a185526a3785e5c7b", a média da série 
+     * deveria ser -50.1319444444444, porém o resultado utilizando o método abaixo é -50 cravado.
+     */
     return this.dataRepository.createQueryBuilder('files')
       .innerJoinAndSelect('files.file', 'data_series')
       .select([
@@ -55,7 +66,15 @@ export class DataSeriesService {
   }
 
   async readFile(file: Express.Multer.File, createDataDto: CreateDataSeriesDto): Promise<Files> {
-
+    /**
+     * 👎 Esta sequência de operações não é atômica
+     * 
+     * O que acontece se a aplicação salvar o arquivo na tabela "files", mas não
+     * conseguir salvar as séries de dados?
+     * 
+     * Isto poderia ser feito dentro de uma transação, e o TypeORM já faz isso ao
+     * se usar a API de [cascades](https://typeorm.io/relations#cascades).
+     */
     const csvFile = readFileSync(file.path);
     var fileSaved = await this.fileServices.create(file, createDataDto.name);
 
